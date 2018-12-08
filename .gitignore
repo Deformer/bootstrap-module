@@ -1,0 +1,4 @@
+.idea
+repos/*
+volumes/postgres/*
+volumes/redis/*
