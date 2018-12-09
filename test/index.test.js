@@ -81,7 +81,7 @@ describe('test case #1', () => {
         expect(user.login).toBe(testUser.login);
         expect(user.name).toBe(testUser.name);
         expect(data).toBeObject();
-        expect(data.message).toBe(`User ${testUser.name} logged in`);
+        expect(data.text).toBe(`User ${testUser.name} logged in`);
 
 
         done();
@@ -142,12 +142,13 @@ describe('test case #1', () => {
       let response;
       let start;
       roomSocket.on('new message', (data) => {
-        expect(data).toBeObject();
-        expect(data.message).toBe(testMessage);
-        expect(data.username).toBe(testUser.name);
         const delay = Date.now() - start;
-        expect(delay < 200).toBeTrue();
 
+        expect(data).toBeObject();
+        expect(isMessage(data)).toBeTrue();
+        expect(data.text).toBe(testMessage);
+        expect(data.user.name).toBe(testUser.name);
+        expect(delay < 200).toBeTrue();
         done();
       });
 
@@ -176,6 +177,6 @@ describe('test case #1', () => {
     expect(newMessage.text === testMessage).toBeTrue();
     expect(newMessage.user.name === testUser.name).toBeTrue();
     done();
-  })
+  });
 
 });
