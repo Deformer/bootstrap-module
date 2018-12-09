@@ -4,8 +4,10 @@ services:
   nginx:
     build: ./nginx
     links:
-      - chat-service
-      - auth-service
+      - chat-service-1
+      - chat-service-2
+      - auth-service-1
+      - auth-service-2
       - web-sockets-1
       - web-sockets-2
     ports:
@@ -13,7 +15,7 @@ services:
     networks:
      - webnet
 
-  chat-service:
+  chat-service-1:
     build: repos/chat-service
     links:
       - redis
@@ -21,11 +23,23 @@ services:
     expose:
       - "8000"
     environment:
-      - NAME=chat
+      - NAME=chat1
     networks:
       - webnet
 
-  auth-service:
+  chat-service-2:
+      build: repos/chat-service
+      links:
+        - redis
+        - postgres
+      expose:
+        - "8000"
+      environment:
+        - NAME=chat2
+      networks:
+        - webnet
+
+  auth-service-1:
     build: repos/auth-service
     links:
      - redis
@@ -33,9 +47,21 @@ services:
     expose:
      - "8000"
     environment:
-     - NAME=auth
+     - NAME=auth1
     networks:
      - webnet
+
+  auth-service-2:
+      build: repos/auth-service
+      links:
+       - redis
+       - postgres
+      expose:
+       - "8000"
+      environment:
+       - NAME=auth2
+      networks:
+       - webnet
 
   web-sockets-1:
     build: repos/web-sockets
