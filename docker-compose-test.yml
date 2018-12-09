@@ -73,7 +73,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
     volumes:
-     - ./volumes/postgres:/var/lib/postgresql/data
+     - ./volumes/postgres-test:/var/lib/postgresql/data
     networks:
      - webnet
 
@@ -93,7 +93,7 @@ services:
     expose:
       - "6379"
     volumes:
-      - ./volumes/redis:/data
+      - ./volumes/redis-test:/data
     ports:
       - 6379:6379
     networks:

@@ -2,4 +2,6 @@
 repos/*
 volumes/postgres/*
 volumes/redis/*
+volumes/postgres-test/*
+volumes/redis-test/*
 node_modules
